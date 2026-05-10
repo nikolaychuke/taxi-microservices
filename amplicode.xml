@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AmplicodePersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit moduleName="notification-service" name="Default">
+        <packages>
+          <package value="org.example.taxi.notification" />
+        </packages>
+      </persistence-unit>
+      <persistence-unit moduleName="trip-service" name="Default">
+        <packages>
+          <package value="org.example.taxi.trip" />
+        </packages>
+      </persistence-unit>
+      <persistence-unit moduleName="user-service" name="Default">
+        <packages>
+          <package value="org.example.taxi.user" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
+</project>
