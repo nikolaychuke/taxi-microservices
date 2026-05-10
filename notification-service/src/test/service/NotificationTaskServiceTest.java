@@ -1,8 +1,9 @@
-package org.example.taxi.notification.service;
+package service;
 
-import org.example.taxi.notification.domain.NotificationTask;
-import org.example.taxi.notification.domain.NotificationTaskStatus;
-import org.example.taxi.notification.repository.NotificationTaskRepository;
+import domain.NotificationTask;
+import domain.NotificationTaskStatus;
+import messaging.NotificationMessage;
+import repository.NotificationTaskRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,6 +40,24 @@ class NotificationTaskServiceTest {
         NotificationTask locked = service.lockNextPendingTask();
 
         assertEquals(NotificationTaskStatus.PROCESSING, locked.getStatus());
+    }
+
+    @Test
+    void createTasksStoresPassengerAndDriverNotificationsForStatusChange() {
+        NotificationMessage message = new NotificationMessage(99L, 1L, 2L, "STARTED", "Trip 99 started");
+
+        service.createTasks(message);
+
+        verify(repository, times(2)).save(any(NotificationTask.class));
+    }
+
+    @Test
+    void createTasksPassengerOnlyWhenNoDriverAssigned() {
+        NotificationMessage message = new NotificationMessage(100L, 5L, null, "CREATED", "No driver");
+
+        service.createTasks(message);
+
+        verify(repository, times(1)).save(any(NotificationTask.class));
     }
 
     @Test

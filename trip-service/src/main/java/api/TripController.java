@@ -1,7 +1,7 @@
-package org.example.taxi.trip.api;
+package api;
 
-import org.example.taxi.trip.domain.TripStatus;
-import org.example.taxi.trip.service.TripManagementService;
+import domain.TripStatus;
+import service.TripManagementService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;

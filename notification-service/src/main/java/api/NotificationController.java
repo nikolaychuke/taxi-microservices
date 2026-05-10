@@ -1,8 +1,8 @@
-package org.example.taxi.notification.api;
+package api;
 
-import org.example.taxi.notification.domain.NotificationTask;
-import org.example.taxi.notification.messaging.NotificationMessage;
-import org.example.taxi.notification.service.NotificationTaskService;
+import domain.NotificationTask;
+import messaging.NotificationMessage;
+import service.NotificationTaskService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

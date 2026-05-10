@@ -1,7 +1,7 @@
-package org.example.taxi.trip.api;
+package api;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import org.example.taxi.trip.domain.TripStatus;
+import domain.TripStatus;
 
 import java.math.BigDecimal;
 

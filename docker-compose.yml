@@ -14,7 +14,6 @@ services:
     image: rabbitmq:3-management
     ports:
       - "5672:5672"
-      - "15672:15672"
 
   redis:
     image: redis:7
@@ -51,7 +50,7 @@ services:
       APP_AUTH_USERNAME: admin
       APP_AUTH_PASSWORD: admin
       APP_JWT_SECRET: the-secret-key-is-32-characters-123
-      TRIP_TARIFF_PER_KM: 50
+      TRIP_PRICING_TARIFF_PER_KM: 50
     depends_on:
       - postgres
       - rabbitmq

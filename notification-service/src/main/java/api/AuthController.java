@@ -1,6 +1,6 @@
-package org.example.taxi.notification.api;
+package api;
 
-import org.example.taxi.notification.security.JwtService;
+import security.JwtService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;

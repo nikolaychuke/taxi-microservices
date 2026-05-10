@@ -1,15 +1,22 @@
-package org.example.taxi.notification.api;
+package api;
 
-import org.example.taxi.notification.domain.NotificationTask;
-import org.example.taxi.notification.domain.NotificationTaskStatus;
-import org.example.taxi.notification.domain.RecipientType;
-import org.example.taxi.notification.security.JwtAuthFilter;
-import org.example.taxi.notification.service.NotificationTaskService;
+import domain.NotificationTask;
+import domain.NotificationTaskStatus;
+import domain.RecipientType;
+import security.JwtAuthFilter;
+import service.NotificationTaskService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -20,9 +27,20 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(NotificationController.class)
+@WebMvcTest(controllers = NotificationController.class)
+@Import({NotificationController.class, NotificationControllerWebTest.WebTestContext.class})
 @AutoConfigureMockMvc(addFilters = false)
 class NotificationControllerWebTest {
+
+    @SpringBootConfiguration
+    @EnableAutoConfiguration(exclude = {
+            DataSourceAutoConfiguration.class,
+            HibernateJpaAutoConfiguration.class,
+            JpaRepositoriesAutoConfiguration.class,
+            RabbitAutoConfiguration.class
+    })
+    static class WebTestContext {
+    }
 
     @Autowired
     private MockMvc mockMvc;

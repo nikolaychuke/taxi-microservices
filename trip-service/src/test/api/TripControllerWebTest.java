@@ -1,13 +1,20 @@
-package org.example.taxi.trip.api;
+package api;
 
-import org.example.taxi.trip.domain.TripStatus;
-import org.example.taxi.trip.security.JwtAuthFilter;
-import org.example.taxi.trip.service.TripManagementService;
+import domain.TripStatus;
+import security.JwtAuthFilter;
+import service.TripManagementService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -18,9 +25,20 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(TripController.class)
+@WebMvcTest(controllers = TripController.class)
+@Import({TripController.class, TripControllerWebTest.WebTestContext.class})
 @AutoConfigureMockMvc(addFilters = false)
 class TripControllerWebTest {
+
+    @SpringBootConfiguration
+    @EnableAutoConfiguration(exclude = {
+            DataSourceAutoConfiguration.class,
+            HibernateJpaAutoConfiguration.class,
+            JpaRepositoriesAutoConfiguration.class,
+            RabbitAutoConfiguration.class
+    })
+    static class WebTestContext {
+    }
 
     @Autowired
     private MockMvc mockMvc;

@@ -1,8 +1,8 @@
-package org.example.taxi.notification.service;
+package service;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-import org.example.taxi.notification.domain.NotificationTask;
+import domain.NotificationTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

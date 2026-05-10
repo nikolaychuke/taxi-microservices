@@ -1,10 +1,10 @@
-package org.example.taxi.notification.service;
+package service;
 
-import org.example.taxi.notification.domain.NotificationTask;
-import org.example.taxi.notification.domain.NotificationTaskStatus;
-import org.example.taxi.notification.domain.RecipientType;
-import org.example.taxi.notification.messaging.NotificationMessage;
-import org.example.taxi.notification.repository.NotificationTaskRepository;
+import domain.NotificationTask;
+import domain.NotificationTaskStatus;
+import domain.RecipientType;
+import messaging.NotificationMessage;
+import repository.NotificationTaskRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

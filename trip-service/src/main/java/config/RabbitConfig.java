@@ -1,4 +1,4 @@
-package org.example.taxi.trip.config;
+package config;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;

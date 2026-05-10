@@ -4,17 +4,17 @@
     <persistence-units>
       <persistence-unit moduleName="notification-service" name="Default">
         <packages>
-          <package value="org.example.taxi.notification" />
+          <package value="notification" />
         </packages>
       </persistence-unit>
       <persistence-unit moduleName="trip-service" name="Default">
         <packages>
-          <package value="org.example.taxi.trip" />
+          <package value="trip" />
         </packages>
       </persistence-unit>
       <persistence-unit moduleName="user-service" name="Default">
         <packages>
-          <package value="org.example.taxi.user" />
+          <package value="user" />
         </packages>
       </persistence-unit>
     </persistence-units>

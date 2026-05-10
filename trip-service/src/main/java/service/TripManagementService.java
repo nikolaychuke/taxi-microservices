@@ -1,11 +1,11 @@
-package org.example.taxi.trip.service;
+package service;
 
-import org.example.taxi.trip.api.TripDtos;
-import org.example.taxi.trip.config.RabbitConfig;
-import org.example.taxi.trip.domain.Trip;
-import org.example.taxi.trip.domain.TripStatus;
-import org.example.taxi.trip.messaging.NotificationMessage;
-import org.example.taxi.trip.repository.TripRepository;
+import api.TripDtos;
+import config.RabbitConfig;
+import domain.Trip;
+import domain.TripStatus;
+import messaging.NotificationMessage;
+import repository.TripRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -53,7 +53,10 @@ public class TripManagementService {
         trip.setDriverId(assignedDriverId);
         trip.setOrigin(request.origin());
         trip.setDestination(request.destination());
-        double distance = request.distanceKm() == null ? 1.0 : request.distanceKm();
+        if (request.distanceKm() == null) {
+            throw new IllegalArgumentException("distance_km is required for price calculation (distance × tariff)");
+        }
+        double distance = request.distanceKm();
         if (distance <= 0) {
             throw new IllegalArgumentException("Distance must be greater than zero");
         }
@@ -78,9 +81,14 @@ public class TripManagementService {
         Trip trip = tripRepository.findById(id).orElseThrow();
         validateStatusTransition(trip.getStatus(), status);
         trip.setStatus(status);
-        if ((status == TripStatus.COMPLETED || status == TripStatus.CANCELLED) && trip.getDriverId() != null) {
-            rabbitTemplate.convertAndSend("", RabbitConfig.Q_DRIVER_STATUS_UPDATE,
-                    Map.of("driverId", trip.getDriverId(), "status", "AVAILABLE"));
+        if (trip.getDriverId() != null) {
+            if (status == TripStatus.ACCEPTED) {
+                rabbitTemplate.convertAndSend("", RabbitConfig.Q_DRIVER_STATUS_UPDATE,
+                        Map.of("driverId", trip.getDriverId(), "status", "BUSY"));
+            } else if (status == TripStatus.COMPLETED || status == TripStatus.CANCELLED) {
+                rabbitTemplate.convertAndSend("", RabbitConfig.Q_DRIVER_STATUS_UPDATE,
+                        Map.of("driverId", trip.getDriverId(), "status", "AVAILABLE"));
+            }
         }
         sendStatusNotification(trip);
         return toResponse(tripRepository.save(trip));

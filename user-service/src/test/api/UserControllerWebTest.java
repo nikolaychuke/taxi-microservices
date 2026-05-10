@@ -1,14 +1,22 @@
-package org.example.taxi.user.api;
+package api;
 
-import org.example.taxi.user.domain.DriverStatus;
-import org.example.taxi.user.security.JwtAuthFilter;
-import org.example.taxi.user.service.UserManagementService;
+import domain.DriverStatus;
+import security.JwtAuthFilter;
+import service.UserManagementService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.when;
@@ -16,9 +24,21 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(UserController.class)
+@WebMvcTest(controllers = UserController.class)
+@Import({UserController.class, UserControllerWebTest.WebTestContext.class})
 @AutoConfigureMockMvc(addFilters = false)
 class UserControllerWebTest {
+
+    @SpringBootConfiguration
+    @EnableAutoConfiguration(exclude = {
+            DataSourceAutoConfiguration.class,
+            HibernateJpaAutoConfiguration.class,
+            JpaRepositoriesAutoConfiguration.class,
+            RabbitAutoConfiguration.class,
+            RedisAutoConfiguration.class
+    })
+    static class WebTestContext {
+    }
 
     @Autowired
     private MockMvc mockMvc;

@@ -1,6 +1,6 @@
-package org.example.taxi.notification.repository;
+package repository;
 
-import org.example.taxi.notification.domain.NotificationTask;
+import domain.NotificationTask;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,7 +1,7 @@
-package org.example.taxi.notification.messaging;
+package messaging;
 
-import org.example.taxi.notification.config.RabbitConfig;
-import org.example.taxi.notification.service.NotificationTaskService;
+import config.RabbitConfig;
+import service.NotificationTaskService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 

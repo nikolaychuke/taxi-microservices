@@ -1,4 +1,4 @@
-package org.example.taxi.trip.security;
+package security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package org.example.taxi.notification.domain;
+package domain;
 
 public enum RecipientType {
     PASSENGER,

@@ -1,8 +1,8 @@
-package org.example.taxi.user.messaging;
+package messaging;
 
-import org.example.taxi.user.config.RabbitConfig;
-import org.example.taxi.user.domain.DriverStatus;
-import org.example.taxi.user.service.UserManagementService;
+import config.RabbitConfig;
+import domain.DriverStatus;
+import service.UserManagementService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 

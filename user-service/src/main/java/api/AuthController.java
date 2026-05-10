@@ -1,6 +1,6 @@
-package org.example.taxi.user.api;
+package api;
 
-import org.example.taxi.user.security.JwtService;
+import security.JwtService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;

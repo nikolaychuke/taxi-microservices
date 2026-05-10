@@ -1,7 +1,7 @@
-package org.example.taxi.user.repository;
+package repository;
 
-import org.example.taxi.user.domain.Driver;
-import org.example.taxi.user.domain.DriverStatus;
+import domain.Driver;
+import domain.DriverStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

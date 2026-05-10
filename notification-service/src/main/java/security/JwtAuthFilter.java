@@ -1,4 +1,4 @@
-package org.example.taxi.notification.security;
+package security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

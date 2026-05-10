@@ -1,6 +1,6 @@
-package org.example.taxi.trip.repository;
+package repository;
 
-import org.example.taxi.trip.domain.Trip;
+import domain.Trip;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

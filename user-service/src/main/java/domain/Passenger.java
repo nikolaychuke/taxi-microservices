@@ -1,4 +1,4 @@
-package org.example.taxi.user.domain;
+package domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

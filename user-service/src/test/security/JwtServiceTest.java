@@ -1,4 +1,4 @@
-package org.example.taxi.user.security;
+package security;
 
 import org.junit.jupiter.api.Test;
 

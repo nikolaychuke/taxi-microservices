@@ -1,14 +1,14 @@
-package org.example.taxi.user.service;
+package service;
 
 import jakarta.transaction.Transactional;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.taxi.user.api.UserDtos;
-import org.example.taxi.user.domain.Driver;
-import org.example.taxi.user.domain.DriverStatus;
-import org.example.taxi.user.domain.Passenger;
-import org.example.taxi.user.repository.DriverRepository;
-import org.example.taxi.user.repository.PassengerRepository;
+import api.UserDtos;
+import domain.Driver;
+import domain.DriverStatus;
+import domain.Passenger;
+import repository.DriverRepository;
+import repository.PassengerRepository;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -94,6 +94,7 @@ public class UserManagementService {
         return fallback.getId();
     }
 
+    @Transactional
     public void setDriverStatus(Long driverId, DriverStatus status) {
         Driver d = driverRepository.findById(driverId).orElseThrow();
         d.setStatus(status);

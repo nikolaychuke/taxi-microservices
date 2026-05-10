@@ -1,4 +1,4 @@
-package org.example.taxi.user.domain;
+package domain;
 
 public enum DriverStatus {
     AVAILABLE,

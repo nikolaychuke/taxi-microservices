@@ -1,6 +1,6 @@
-package org.example.taxi.user.api;
+package api;
 
-import org.example.taxi.user.domain.DriverStatus;
+import domain.DriverStatus;
 
 public class UserDtos {
     public record PassengerCreateRequest(String name, String email, String phone) {}

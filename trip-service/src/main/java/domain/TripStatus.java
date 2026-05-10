@@ -1,4 +1,4 @@
-package org.example.taxi.trip.domain;
+package domain;
 
 public enum TripStatus {
     CREATED,
