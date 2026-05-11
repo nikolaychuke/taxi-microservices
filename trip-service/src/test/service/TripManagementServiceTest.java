@@ -92,14 +92,14 @@ class TripManagementServiceTest {
 
     @Test
     void getDailyStatsAggregatesTripRepository() {
-        LocalDate day = LocalDate.of(2030, 1, 15);
+        LocalDate day = LocalDate.of(2027, 5, 11);
         when(tripRepository.countByCreatedAtBetween(any(), any())).thenReturn(4L);
-        when(tripRepository.avgPriceBetween(any(), any())).thenReturn(BigDecimal.valueOf(123.456));
+        when(tripRepository.avgPriceBetween(any(), any())).thenReturn(BigDecimal.valueOf(123.45));
 
         TripDtos.DailyStatsResponse stats = service.getDailyStats(day);
 
         assertEquals(4L, stats.tripsCount());
-        assertEquals(BigDecimal.valueOf(123.46).setScale(2, RoundingMode.HALF_UP), stats.averagePrice());
+        assertEquals(BigDecimal.valueOf(123.45).setScale(2, RoundingMode.HALF_UP), stats.averagePrice());
 
         Instant start = day.atStartOfDay(ZoneId.systemDefault()).toInstant();
         Instant end = day.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant();

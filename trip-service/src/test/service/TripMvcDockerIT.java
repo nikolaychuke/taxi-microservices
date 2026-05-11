@@ -62,7 +62,7 @@ class TripMvcDockerIT {
                             return Map.of("exists", true);
                         }
                         if (RabbitConfig.Q_DRIVER_ASSIGN.equals(queue)) {
-                            return Map.of("driverId", 500L);
+                            return Map.of("driverId", 50L);
                         }
                         return null;
                     });
@@ -118,7 +118,7 @@ class TripMvcDockerIT {
         a.setStatus(TripStatus.COMPLETED);
         a.setOrigin("a");
         a.setDestination("b");
-        a.setDistanceKm(10.0);
+        a.setDistanceKm(2.0);
         a.setPrice(new java.math.BigDecimal("100.00"));
         tripRepository.save(a);
         Trip b = new Trip();
@@ -127,7 +127,7 @@ class TripMvcDockerIT {
         b.setStatus(TripStatus.COMPLETED);
         b.setOrigin("c");
         b.setDestination("d");
-        b.setDistanceKm(5.0);
+        b.setDistanceKm(4.0);
         b.setPrice(new java.math.BigDecimal("200.00"));
         tripRepository.save(b);
 

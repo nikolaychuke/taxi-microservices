@@ -50,8 +50,8 @@ class UserManagementRedisCacheUnitTest {
         Driver d = new Driver();
         d.setName("Cache");
         d.setEmail("c@test");
-        d.setPhone("+7");
-        d.setLicenseNumber("L1");
+        d.setPhone("+790000006");
+        d.setLicenseNumber("Lic-cach");
         d.setStatus(DriverStatus.AVAILABLE);
         when(driverRepository.findTop20ByStatusOrderByIdAsc(DriverStatus.AVAILABLE)).thenReturn(List.of(d));
 
@@ -75,10 +75,10 @@ class UserManagementRedisCacheUnitTest {
         Driver d = mock(Driver.class);
         lenient().when(d.getStatus()).thenReturn(DriverStatus.AVAILABLE);
         lenient().when(d.getId()).thenReturn(1L);
-        lenient().when(d.getName()).thenReturn("x");
-        lenient().when(d.getEmail()).thenReturn("x@y");
-        lenient().when(d.getPhone()).thenReturn("1");
-        lenient().when(d.getLicenseNumber()).thenReturn("L");
+        lenient().when(d.getName()).thenReturn("redis");
+        lenient().when(d.getEmail()).thenReturn("re@dis");
+        lenient().when(d.getPhone()).thenReturn("+79999999");
+        lenient().when(d.getLicenseNumber()).thenReturn("Lic-R");
         when(driverRepository.findById(1L)).thenReturn(java.util.Optional.of(d));
         when(driverRepository.save(any())).thenAnswer(i -> i.getArgument(0));
 

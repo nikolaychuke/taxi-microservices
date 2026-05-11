@@ -51,7 +51,7 @@ class UserControllerWebTest {
     @Test
     void getDriverReturnsDriverProfile() throws Exception {
         UserDtos.DriverResponse response = new UserDtos.DriverResponse(
-                1L, "Petr", "petr@mail.com", "+70000000002", "LIC-001", DriverStatus.AVAILABLE);
+                1L, "Egor", "test@mail.com", "+70000000000", "LIC-302", DriverStatus.AVAILABLE);
         when(service.getDriver(1L)).thenReturn(response);
 
         mockMvc.perform(get("/drivers/1").accept(MediaType.APPLICATION_JSON))

@@ -100,15 +100,15 @@ class JwtAndUserApiDockerIT {
         mockMvc.perform(post("/passengers")
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\":\"Anna\",\"email\":\"anna@test\",\"phone\":\"+79001112233\"}"))
+                        .content("{\"name\":\"Egor\",\"email\":\"test@test\",\"phone\":\"+79001112233\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.name").value("Anna"));
+                .andExpect(jsonPath("$.name").value("Egor"));
 
         MvcResult driverResult = mockMvc.perform(post("/drivers")
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\":\"Boris\",\"email\":\"boris@test\",\"phone\":\"+79004445566\",\"licenseNumber\":\"LIC-99\"}"))
+                        .content("{\"name\":\"Boris\",\"email\":\"boris@test\",\"phone\":\"+79004445566\",\"licenseNumber\":\"LIC-22\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("AVAILABLE"))
                 .andReturn();

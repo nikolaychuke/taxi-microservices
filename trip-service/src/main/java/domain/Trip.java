@@ -6,10 +6,11 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-@Table(name = "trips", indexes = @Index(name = "idx_trip_status", columnList = "status"))
+@Table(name = "trips")
 public class Trip {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trip_seq")
+    @SequenceGenerator(name = "trip_seq", sequenceName = "trips_id_seq", allocationSize = 1)
     private Long id;
     @Column(name = "passenger_id")
     private Long passengerId;

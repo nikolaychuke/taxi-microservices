@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.SequenceGenerator;
 
 import java.time.Instant;
 
@@ -12,7 +13,8 @@ import java.time.Instant;
 @Table(name = "passengers")
 public class Passenger {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "passenger_seq")
+    @SequenceGenerator(name = "passenger_seq", sequenceName = "passengers_id_seq", allocationSize = 1)
     private Long id;
     private String name;
     private String email;

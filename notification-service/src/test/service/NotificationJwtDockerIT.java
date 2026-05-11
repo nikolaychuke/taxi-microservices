@@ -71,8 +71,7 @@ class NotificationJwtDockerIT {
         NotificationTask task = new NotificationTask();
         task.setTripId(1L);
         task.setRecipientType(RecipientType.PASSENGER);
-        task.setRecipientId(42L);
-        task.setMessage("hello");
+        task.setRecipientId(2L);
         task.setStatus(NotificationTaskStatus.SENT);
         repository.save(task);
 

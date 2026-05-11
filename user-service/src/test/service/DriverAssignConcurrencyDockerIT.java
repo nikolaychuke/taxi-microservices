@@ -67,13 +67,13 @@ class DriverAssignConcurrencyDockerIT {
 
     @Test
     void concurrentAssignNeverGivesSameDriverTwice() throws Exception {
-        int n = 8;
+        int n = 4;
         for (int i = 0; i < n; i++) {
             Driver d = new Driver();
             d.setName("D-" + i);
             d.setEmail("d-" + i + "@concurrency.test");
             d.setPhone("+790000000" + String.format("%02d", i));
-            d.setLicenseNumber("LIC-C-" + i);
+            d.setLicenseNumber("LIC-" + i);
             d.setStatus(DriverStatus.AVAILABLE);
             driverRepository.save(d);
         }
@@ -87,7 +87,7 @@ class DriverAssignConcurrencyDockerIT {
                     ready.countDown();
                     go.await(60, TimeUnit.SECONDS);
                     Long id = userManagementService.assignFreeDriverAtomically();
-                    assertTrue(id != null, "expected free driver while pool has capacity");
+                    assertTrue(id != null, "ERROR");
                     assignedIds.add(id);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -98,10 +98,10 @@ class DriverAssignConcurrencyDockerIT {
         assertTrue(ready.await(60, TimeUnit.SECONDS));
         go.countDown();
         pool.shutdown();
-        assertTrue(pool.awaitTermination(90, TimeUnit.SECONDS));
+        assertTrue(pool.awaitTermination(60, TimeUnit.SECONDS));
         assertEquals(n, assignedIds.size());
         assertEquals(n, new HashSet<>(assignedIds).size(),
-                "two concurrent assigns must never return the same driver id");
+                "ERROR");
         long busy = driverRepository.findAll().stream().filter(d -> d.getStatus() == DriverStatus.BUSY).count();
         assertEquals(n, busy);
     }

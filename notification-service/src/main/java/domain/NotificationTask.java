@@ -5,10 +5,11 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "notification_tasks", indexes = @Index(name = "idx_notification_status", columnList = "status"))
+@Table(name = "notification_tasks")
 public class NotificationTask {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "notification_seq")
+    @SequenceGenerator(name = "notification_seq", sequenceName = "notification_tasks_id_seq", allocationSize = 1)
     private Long id;
     @Column(name = "trip_id")
     private Long tripId;

@@ -64,7 +64,6 @@ class NotificationConcurrentClaimDockerIT {
             t.setTripId((long) (i + 1));
             t.setRecipientType(RecipientType.PASSENGER);
             t.setRecipientId(1L);
-            t.setMessage("msg-" + i);
             t.setStatus(NotificationTaskStatus.PENDING);
             t.setAttempts(0);
             repository.save(t);
@@ -81,7 +80,7 @@ class NotificationConcurrentClaimDockerIT {
                     ready.countDown();
                     go.await(60, TimeUnit.SECONDS);
                     NotificationTask locked = taskService.lockNextPendingTask();
-                    assertTrue(locked != null, "every worker should dequeue one row while queue has capacity");
+                    assertTrue(locked != null, "EROR");
                     claimedIds.add(locked.getId());
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -96,11 +95,11 @@ class NotificationConcurrentClaimDockerIT {
         assertTrue(pool.awaitTermination(90, TimeUnit.SECONDS));
 
         assertEquals(tasks, claimedIds.size(),
-                "FOR UPDATE SKIP LOCKED must guarantee no duplicate task pickup across threads");
+                "EROR");
 
         assertEquals(tasks,
                 repository.findAll().stream()
                         .filter(t -> t.getStatus() == NotificationTaskStatus.PROCESSING).count(),
-                "all rows should transition to PROCESSING after claim");
+                "EROR");
     }
 }
